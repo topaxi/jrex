@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>J-Rex - JavaScript RegExp Testing</title>
+  <style>
+    html, input, textarea { font-family: monospace }
+    input, textarea { border: 1px solid gray }
+  </style>
+</head>
+<body>
+  <div>/ <input id="regexp" style="width:64em"> / <input id="flags" style="width:3em"></div>
+  <div><label>Input: <textarea id="input" style="display:block;width:62em"></textarea></label></div>
+  <div>Matches: <span id="matches"></span></div>
+  <div>Captured: <ul id="captured"></ul></div>
+  <script>
+    ;(function(d) {
+      var iregexp   = document.getElementById('regexp')
+        , iflags    = document.getElementById('flags')
+        , iinput    = document.getElementById('input')
+        , ecaptured = document.getElementById('captured')
+        , ematches  = document.getElementById('matches')
+
+      iregexp.addEventListener('keyup', exec, false)
+      iflags .addEventListener('keyup', exec, false)
+      iinput .addEventListener('keyup', exec, false)
+
+      function exec() {
+        try {
+          var r       = new RegExp(iregexp.value, iflags.value)
+            , input   = iinput.value
+            , matches = r.exec(input)
+
+          ecaptured.innerHTML = ''
+
+          if (!matches) {
+            ematches.innerHTML = ''
+
+            return
+          }
+
+          ematches.innerHTML = input.replace(r, '<strong style="text-decoration: underline">$&</strong>')
+
+          for (var i = 1, l = matches.length; i < l; ++i) {
+            var captured = document.createElement('li')
+
+            captured.textContent = matches[i]
+
+            ecaptured.appendChild(captured)
+          }
+        }
+        catch (e) {
+          if (typeof console != 'undefined') console.log(e)
+        }
+      }
+
+      exec()
+    })(document)
+  </script>
+</body>
+</html>
