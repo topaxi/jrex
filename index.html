@@ -4,15 +4,18 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>J-Rex - JavaScript RegExp Testing</title>
   <style>
-    html, input, textarea { font-family: monospace }
+    html, input, textarea, .pre { font-family: monospace }
     input, textarea { border: 1px solid gray }
+    .pre { word-wrap: pre }
   </style>
 </head>
 <body>
   <div>/ <input id="regexp" style="width:64em"> / <input id="flags" style="width:3em"></div>
   <div><label>Input: <textarea id="input" style="display:block;width:62em"></textarea></label></div>
-  <div>Matches: <span id="matches"></span></div>
-  <div>Captured: <ul id="captured"></ul></div>
+  <div>Matches:</div>
+  <div id="matches" class="pre"></div>
+  <div>Captured:</div>
+  <ul id="captured" class="pre"></ul>
   <script>
     ;(function(d) {
       var iregexp   = document.getElementById('regexp')
